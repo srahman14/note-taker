@@ -1,5 +1,5 @@
 export const getNotes = (req, res) => {
-    res.status(201).send("you got 7 notes");
+    res.status(201).send("you got 8 notes");
 };
 export const createNote = (req, res) => {
     res.status(201).json({message: "Notes successfully created"});
