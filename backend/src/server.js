@@ -1,7 +1,12 @@
 import express from "express";
 import notesRoutes from "./routes/notesRoutes.js";
+import { connectDB } from "../config/db.js";
+import dotdot from "dotenv";
+dotdot.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+connectDB();
 app.use("/api/notes", notesRoutes);
 
 // Endpoints
@@ -21,6 +26,6 @@ app.use("/api/notes", notesRoutes);
 //     res.status(201).json({message: "Notes deleted successfully"});
 // });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log("Server started on PORT: 3000");
 });
