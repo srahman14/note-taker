@@ -1,16 +1,30 @@
 import express from "express";
+import dotdot from "dotenv";
+import cors from "cors";
+
 import notesRoutes from "./routes/notesRoutes.js";
 import { connectDB } from "./config/db.js";
-import dotdot from "dotenv";
 import rateLimiter from "./middleware/rateLimiter.js";
 dotdot.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+// Default to 5001 to match the frontend dev server used in the project
+const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(express.json());
+// Enable CORS before rate limiting so preflight (OPTIONS) requests are
+// handled by the CORS middleware instead of being blocked by the limiter.
+app.use(
+  cors({
+    // remove trailing slash - the Origin header will be "http://localhost:5173"
+    origin: "http://localhost:5173",
+  })
+);
+
 app.use(rateLimiter);
+
+// Routes
 app.use("/api/notes", notesRoutes);
 
 connectDB().then(() => {
