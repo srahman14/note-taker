@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar.jsx";
 import RateLimited from "../components/RateLimited.jsx";
-import axios from "axios";
+import api from "../lib/axios.js";
 import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard.jsx";
+import NotesNotFound from "../components/NotesNotFound.jsx";
 const HomePage = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
   const [notes, setNotes] = useState([]);
@@ -12,7 +13,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/notes");
+        const res = await api.get("/notes");
         setNotes(res.data);
         console.log(res.data);
         setIsRateLimited(false);
@@ -38,13 +39,19 @@ const HomePage = () => {
         {loading && <div className="text-center text-primary">Loading...</div>}
       </div>
 
-      {notes.length > 0 && !isRateLimited && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {notes.map((note, idx) => (
-            <NoteCard key={note._id || idx} note={note} />
-          ))}
-        </div>
+      {notes.length === 0 && !loading && !isRateLimited && (
+        <NotesNotFound />
       )}
+
+      <div className="mx-auto max-w-7xl p-4">
+        {notes.length > 0 && !isRateLimited && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {notes.map((note, idx) => (
+              <NoteCard key={note._id || idx} note={note} setNotes={setNotes} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
