@@ -17,8 +17,7 @@ app.use(express.json());
 // handled by the CORS middleware instead of being blocked by the limiter.
 app.use(
   cors({
-    // remove trailing slash - the Origin header will be "http://localhost:5173"
-    origin: "http://localhost:5173",
+    origin: process.env.CORS_ORIGIN,
   })
 );
 
