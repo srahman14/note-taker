@@ -1,6 +1,7 @@
 import React from "react";
 import { Plus } from "lucide-react";
 import { Link } from "react-router";
+import ThemeController from "./ThemeController";
 
 const Navbar = () => {
   return (
@@ -12,10 +13,16 @@ const Navbar = () => {
           </h1>
 
           <div className="flex gap-4 justify-center items-center">
-            <Link to="/create" className="btn btn-primary btn-sm">
-              <Plus className="size-5" />
-              <span>New Note</span>
-            </Link>
+            <div>
+              <Link to="/create" className="btn btn-primary btn-sm">
+                <Plus className="size-5" />
+                <span>New Note</span>
+              </Link>
+            </div>
+
+            <div>
+              <ThemeController />
+            </div>
           </div>
         </div>
       </div>
