@@ -53,7 +53,6 @@ Common variables:
 - `MONGO_URI` — MongoDB connection string
 - `PORT` — backend port (defaults to 5001)
 - `UPSTASH_REDIS_REST_URL` & `UPSTASH_REDIS_REST_TOKEN` — Upstash credentials when using Upstash for rate limiting
-- `CORS_ORIGIN` — the frontend origin during development (e.g. `http://localhost:5173`)
 
 ## Dependency checklist
 

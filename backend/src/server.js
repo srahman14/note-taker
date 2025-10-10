@@ -17,11 +17,13 @@ const __dirname = path.resolve();
 app.use(express.json());
 // Enable CORS before rate limiting so preflight (OPTIONS) requests are
 // handled by the CORS middleware instead of being blocked by the limiter.
-app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN,
-  })
-);
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+    })
+  );
+}
 
 app.use(rateLimiter);
 
