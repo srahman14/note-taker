@@ -32,7 +32,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen" data-theme="dim">
+    <div className="min-h-screen">
       <Navbar />
       {isRateLimited && <RateLimited />}
 
