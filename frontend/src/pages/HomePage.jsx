@@ -5,6 +5,7 @@ import api from "../lib/axios.js";
 import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard.jsx";
 import NotesNotFound from "../components/NotesNotFound.jsx";
+
 const HomePage = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
   const [notes, setNotes] = useState([]);
@@ -39,9 +40,7 @@ const HomePage = () => {
         {loading && <div className="text-center text-primary">Loading...</div>}
       </div>
 
-      {notes.length === 0 && !loading && !isRateLimited && (
-        <NotesNotFound />
-      )}
+      {notes.length === 0 && !loading && !isRateLimited && <NotesNotFound />}
 
       <div className="mx-auto max-w-7xl p-4">
         {notes.length > 0 && !isRateLimited && (
