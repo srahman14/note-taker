@@ -4,7 +4,8 @@ A simple MERN-style note taking app (minimal backend + React frontend).
 
 This repo contains a small Express + MongoDB backend and a React frontend used to create, read, update and delete notes.
 
-Currently working on adding user authentication.
+## Currently working on:
+- Touching up on user authenticaton
 
 ## Features
 
