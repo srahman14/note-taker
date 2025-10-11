@@ -1,11 +1,12 @@
 import express from "express";
 import dotdot from "dotenv";
 import cors from "cors";
-import path from "path"
+import path from "path";
 
 import notesRoutes from "./routes/notesRoutes.js";
 import { connectDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
+import { verifyFirebaseToken } from "./middleware/authMiddleware.js";
 dotdot.config();
 
 const app = express();
@@ -28,7 +29,7 @@ if (process.env.NODE_ENV !== "production") {
 app.use(rateLimiter);
 
 // Routes
-app.use("/api/notes", notesRoutes);
+app.use("/api/notes", verifyFirebaseToken, notesRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
