@@ -6,8 +6,11 @@ import {
   getNotes,
   getNoteById,
 } from "../controllers/notesController.js";
+import { verifyFirebaseToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
+
+router.use(verifyFirebaseToken);
 
 router.get("/", getNotes);
 router.get("/:id", getNoteById);
