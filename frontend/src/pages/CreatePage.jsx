@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
+import api from "../lib/axios";
 
 const CreatePage = () => {
   const [title, setTitle] = useState("");
@@ -13,7 +14,7 @@ const CreatePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!title.trim() || !content.trim()) {
       toast.error("Please fill in both title and content");
       return;
@@ -22,18 +23,16 @@ const CreatePage = () => {
     setLoading(true);
 
     try {
-      await axios.post("http://localhost:5001/api/notes", { title, content });
+      await api.post("/notes", { title, content });
       toast.success("Note created successfully");
       navigate("/");
     } catch (error) {
       console.error("Error created a note", error);
       if (error.response.status === 429) {
-        toast.error("Slow down. You're creating too many notes at once!", 
-          { 
-            duration: 4000,
-            icon: icons.alert_circle
-          }
-        );
+        toast.error("Slow down. You're creating too many notes at once!", {
+          duration: 4000,
+          icon: icons.alert_circle,
+        });
       } else {
         toast.error("Failed to create note");
       }
@@ -81,9 +80,12 @@ const CreatePage = () => {
                 </div>
 
                 <div className="card-actions justify-end">
-                  <button className="btn btn-primary" type="submit" disabled={loading}>
+                  <button
+                    className="btn btn-primary"
+                    type="submit"
+                    disabled={loading}
+                  >
                     {loading ? "Creating..." : "Create Note"}
-
                   </button>
                 </div>
               </form>
